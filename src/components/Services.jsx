@@ -1,22 +1,16 @@
 import { useContext, useState } from "react";
 import { Context } from "../context/Context";
-import { Card, CardMedia, CardContent, Typography, Grid2, Button, Box } from "@mui/material"; // Import MUI components
+import { Card, CardMedia, CardContent, Typography, Grid2, Button, Box } from "@mui/material";
 import MassageStyles from "./MassageStyles";
 
 const Services = () => {
-    const { services, massageStyles } = useContext(Context); // Extract massageStyles from context
+    const { services} = useContext(Context);
     const [isMassage, setIsMassage] = useState(false);
 
     const handleToggle = () => {
         setIsMassage(!isMassage);
     };
 
-    const fontSize = {
-        xs: '1.2rem', // For extra small screens (phones)
-        sm: '1.2rem', // For small screens (tablets)
-        md: '1.5rem', // For medium screens (desktops)
-        lg: '1.8rem', // For large screens
-    };
 
     const serviceElements = services.map((service, index) => {
         return (
@@ -24,27 +18,27 @@ const Services = () => {
                 key={index}
                 className='service-container'
                 size={{
-                    xs: 12, // 12 columns for extra small screens (phones)
-                    sm: 6, // 6 columns for small screens (tablets)
-                    md: service.title === "Massage" ? 10 : 5, // 4 columns for medium screens (desktops)
+                    xs: 12, 
+                    sm: 6, 
+                    md: service.title === "Massage" ? 10 : 5, 
                 }}
             >
                 <Card
                     className="service-card"
                     sx={{
-                        height: '100%', // Ensures the card takes the full height
-                        display: 'flex', // Flexbox layout
-                        flexDirection: 'column', // Column direction to stack elements vertically
+                        height: '100%', 
+                        display: 'flex', 
+                        flexDirection: 'column', 
                     }}
                 >
                     <CardMedia
                         component="img"
                         alt={service.title}
-                        height="200" // Fixed height for the image
+                        height="200"
                         image={service.serviceImg}
                         title={service.title}
                     />
-                    <CardContent sx={{ flexGrow: 1 }}> {/* Flex-grow allows content to stretch */}
+                    <CardContent sx={{ flexGrow: 1 }}> 
                         <Typography gutterBottom variant="h5" component="div">
                             {service.title}
                         </Typography>
@@ -65,7 +59,7 @@ const Services = () => {
                                     variant="outlined"
                                     color="dark"
                                     sx={{
-                                        marginBottom: '1rem', // Add margin at the bottom
+                                        marginBottom: '1rem',
                                     }}
                                     onClick={handleToggle}
                                 >
@@ -83,7 +77,7 @@ const Services = () => {
 
     return (
         <>
-            <Grid2 container spacing={4} justifyContent="center"> {/* Grid2 container for cards */}
+            <Grid2 container spacing={4} justifyContent="center"> 
                 {serviceElements}
             </Grid2>
 
