@@ -1,0 +1,79 @@
+*{
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: black;
+  position: relative;
+  min-height: 100vh;
+  color: white;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+
+.navbar{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.navbar-img{
+  width: 50vw;
+  height: auto;
+  margin-top: 5vh;
+}
+
+.footer{
+  height: 5vh;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-image: url('./assets/black-pine-footer.png');
+  background-size: contain;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.home{
+  padding-bottom: 15vh;
+  padding-top: 5vh;
+  animation: fadeIn 3s ease-in-out;
+}
+
+.massage-header{
+  display: flex;
+  width: 100%;
+}
+
+.massage-header > h3{
+  justify-self: center;
+}
+
+@media (max-width: 767px) {
+  .service-card{
+    margin-left: 5vw !important;
+    margin-right: 5vw !important;
+  }
+  .massage-close-button{
+    position: relative !important;
+    align-self: flex-end;
+    margin-bottom: 3vh !important;
+    margin-top: 0;
+  }
+  .massage-card{
+    width: 85vw !important;
+  }
+
+  .massage-container{
+    width: 100vw !important;
+  }
+}
