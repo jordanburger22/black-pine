@@ -23,10 +23,11 @@ export default function LoginModal(props) {
   const { open, handleClose } = props;
   const { googleLogin } = useContext(Context); // Use context to handle Google login
 
-  const handleSuccess = (response) => {
+  const handleSuccess = async(response) => {
     const { credential } = response;
     if (credential) {
-      googleLogin(credential); // Call the context method to handle login
+      await googleLogin(credential); // Call the context method to handle login
+      handleClose(); // Close the modal after successful login
     } else {
       console.error('Google login failed: no credential received');
     }
