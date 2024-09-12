@@ -4,13 +4,14 @@ import Services from "./Services";
 
 
 const Home = () => {
-    
-    return ( 
+
+    return (
         <div className="home">
             <Services />
             <Contact />
+
         </div>
-     );
+    );
 }
- 
+
 export default Home;

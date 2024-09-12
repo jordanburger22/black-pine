@@ -7,13 +7,15 @@ import ShoppingBagButton from './ShoppingBagButton';
 import facebook from '../assets/facebook.svg';
 import instagram from '../assets/instagram.svg';
 
-const Navbar = () => {
+const Navbar = ({handleOpen}) => {
     const { businessInfo: { subHeader } } = useContext(Context);
 
     return (
         <nav>
             <div className='navigation'>
                 <Button
+                    onClick={handleOpen}
+                    className='navigation-btn'
                     variant="contained"
                     color='dark'
                     sx={{
@@ -28,21 +30,92 @@ const Navbar = () => {
                             borderColor: '#aaa', // Lighter border color on hover
                             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', // Add shadow effect on hover
                         },
-                        minWidth: '120px', // Ensure the button is wide enough
-                        textAlign: 'center', // Center text horizontally
+                        minWidth: '120px', 
+                        textAlign: 'center', 
 
                     }}
                 >
-                    <img src={loginSVG} alt="Login" style={{ maxHeight: '5vh', }} /> {/* Add margin to separate image from text */}
+                    <img src={loginSVG} alt="Login" style={{ maxHeight: '5vh', }} />
                     Login
                 </Button>
+                
+                <a
+                    href="https://www.facebook.com/profile.php?id=100083172138963"
+                    target="_blank"
+                    className='navigation-btn'
+                >
+                    <Button
+                        variant="contained"
+                        color='dark'
+                        sx={{
+                            color: 'white',
+                            borderColor: 'white',
+                            marginLeft: '1vw',
+                            display: 'flex',
+                            alignItems: 'center',
+                            '&:hover': {
+                                backgroundColor: '#333', // Darker shade on hover
+                                borderColor: '#aaa', // Lighter border color on hover
+                                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', // Add shadow effect on hover
+                            },
+                        }}
+                    >
+                        <img src={facebook} style={{ maxHeight: '5vh', }} />
+                    </Button>
+                </a>
+                <a
+                    href='https://instagram.com/black_pine_wellness?igshid=YmMyMTA2M2Y='
+                    target="_blank"
+                    className='navigation-btn'
+                >
+                    <Button
+                        variant="contained"
+                        color='dark'
+                        sx={{
+                            color: 'white',
+                            borderColor: 'white',
+                            marginLeft: '1vw',
+                            display: 'flex',
+                            alignItems: 'center',
+                            '&:hover': {
+                                backgroundColor: '#333', // Darker shade on hover
+                                borderColor: '#aaa', // Lighter border color on hover
+                                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', // Add shadow effect on hover
+                            },
+                        }}
+                    >
+                        <img src={instagram} style={{ maxHeight: '4vh', }} />
+                    </Button>
+                </a>
+                <Button
+                    variant="contained"
+                    className='navigation-btn'
+                    color='dark'
+                    sx={{
+                        color: 'white',
+                        borderColor: 'white',
+                        marginLeft: '1vw',
+                        display: 'flex',
+                        alignItems: 'center',
+                        '&:hover': {
+                            backgroundColor: '#333', // Darker shade on hover
+                            borderColor: '#aaa', // Lighter border color on hover
+                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', // Add shadow effect on hover
+                        },
+                    }}
+                >
+                    <Typography variant="body1" fontFamily="Dancing Script" sx={{
+                        fontSize: {
+                            xs: '1.5rem', // For extra small screens (phones)
+                            sm: '1.5rem', // For small screens (tablets)
+                            md: '2rem', // For medium screens (desktops)
+                            lg: '2.5rem', // For large screens
+                        },
+                    }}>
+                        Shop
+                    </Typography>
+                </Button>
                 <ShoppingBagButton />
-                <Button>
-                    <img src={facebook} style={{ maxHeight: '5vh', }}/>
-                </Button>
-                <Button>
-                    <img src={instagram} style={{ maxHeight: '4vh', }}/>
-                </Button>
             </div>
             <div className='navbar'>
                 <img className='navbar-img' src={logo} alt='Logo' />
