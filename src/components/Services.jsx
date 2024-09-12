@@ -11,11 +11,10 @@ const Services = () => {
         setIsMassage(!isMassage);
     };
 
-    console.log(services);
     services.sort((a, b) => {
         if (a.title === "Massage") return 1; // Move "Massage" to the end
         if (b.title === "Massage") return -1;
-        return 0; // Keep other services in their original order
+        return 0;
       });
 
 

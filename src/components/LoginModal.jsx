@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import {GoogleLogin} from '@react-oauth/google'
 
 const style = {
   position: 'absolute',
@@ -18,9 +19,16 @@ const style = {
 };
 
 export default function LoginModal(props) {
+  const { open, handleClose } = props;
 
-  const {open, handleClose} = props;
-  
+  const handleSuccess = (credentialResponse) => {
+    console.log(credentialResponse);
+    // Handle the successful login response here
+  };
+
+  const handleFailure = () => {
+    console.error('Login failed');
+  };
 
   return (
     <div>
@@ -32,11 +40,15 @@ export default function LoginModal(props) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+            Login with Google
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <GoogleLogin 
+            onSuccess={handleSuccess}
+            onError={handleFailure}
+          />
+          <Button onClick={handleClose} sx={{ mt: 2 }} variant="outlined">
+            Close
+          </Button>
         </Box>
       </Modal>
     </div>
