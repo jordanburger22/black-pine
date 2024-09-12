@@ -7,9 +7,11 @@ import ShoppingBagButton from './ShoppingBagButton';
 import facebook from '../assets/facebook.svg';
 import instagram from '../assets/instagram.svg';
 import logoutSVG from '../assets/logout.svg';
+import {useNavigate} from 'react-router-dom'
 
 const Navbar = ({ handleOpen }) => {
     const { businessInfo: { subHeader }, token, logout, user } = useContext(Context);
+    const navigate = useNavigate();
 
     return (
         <nav>
@@ -145,11 +147,12 @@ const Navbar = ({ handleOpen }) => {
                         Shop
                     </Typography>
                 </Button>
-                <ShoppingBagButton />
+                {token && <ShoppingBagButton />}
                 {token && user && user.role === 'admin' && <Button
                     variant="contained"
                     className='navigation-btn'
                     color='dark'
+                    onClick={() => navigate('/admin')}
                     sx={{
                         color: 'white',
                         borderColor: 'white',

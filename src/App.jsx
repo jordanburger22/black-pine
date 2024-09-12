@@ -5,6 +5,8 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './components/Home'
 import LoginModal from './components/LoginModal'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import Admin from './components/admin-pages/Admin'
 
 function App() {
 
@@ -12,6 +14,8 @@ function App() {
     getServices,
     getMassageStyles,
     getBusinessInfo,
+    token,
+    user
   } = useContext(Context)
 
   useEffect(() => {
@@ -27,8 +31,11 @@ function App() {
   return (
     <>
       <Navbar handleOpen={handleOpen} />
-      <Home />
       <LoginModal open={open} handleClose={handleClose} />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/admin' element={token && user && user.role === 'admin' ? <Admin /> : <Navigate to='/' />} />
+      </Routes>
       <Footer />
     </>
   )
