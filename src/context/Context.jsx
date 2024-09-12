@@ -35,7 +35,7 @@ export const ContextProvider = ({ children }) => {
 
     const login = async (creds) => {
         try {
-            const res = await axios.post(`${baseURL}/login`, creds)
+            const res = await axios.post(`${baseURL}/auth/login`, creds)
             const { user, token } = res.data
             localStorage.setItem('token', token)
             localStorage.setItem('user', JSON.stringify(user))
@@ -52,7 +52,7 @@ export const ContextProvider = ({ children }) => {
 
     const signup = async (creds) => {
         try {
-            return await axios.post(`${baseURL}/signup`, creds)
+            return await axios.post(`${baseURL}/auth/signup`, creds)
         } catch (err) {
             console.log(err)
             handleAuthErr(err)
@@ -71,7 +71,7 @@ export const ContextProvider = ({ children }) => {
 
     const googleLogin = async (tokenId) => {
         try {
-            const res = await axios.post(`${baseURL}/google-login`, { idToken: tokenId })
+            const res = await axios.post(`${baseURL}/auth/google`, { idToken: tokenId })
             const { user, token } = res.data
             localStorage.setItem('token', token)
             localStorage.setItem('user', JSON.stringify(user))
