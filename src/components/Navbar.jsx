@@ -6,39 +6,68 @@ import loginSVG from '../assets/login.svg';
 import ShoppingBagButton from './ShoppingBagButton';
 import facebook from '../assets/facebook.svg';
 import instagram from '../assets/instagram.svg';
+import logoutSVG from '../assets/logout.svg';
 
-const Navbar = ({handleOpen}) => {
-    const { businessInfo: { subHeader } } = useContext(Context);
+const Navbar = ({ handleOpen }) => {
+    const { businessInfo: { subHeader }, token, logout } = useContext(Context);
 
     return (
         <nav>
             <div className='navigation'>
-                <Button
-                    onClick={handleOpen}
-                    className='navigation-btn'
-                    variant="contained"
-                    color='dark'
-                    sx={{
-                        color: 'white',
-                        borderColor: 'white',
-                        marginLeft: '1vw',
-                        display: 'flex',
-                        alignItems: 'center',
-                        padding: '8px 16px', // Adjust padding to fit content
-                        '&:hover': {
-                            backgroundColor: '#333', // Darker shade on hover
-                            borderColor: '#aaa', // Lighter border color on hover
-                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', // Add shadow effect on hover
-                        },
-                        minWidth: '120px', 
-                        textAlign: 'center', 
+                {token ?
+                    <Button
+                        onClick={logout}
+                        className='navigation-btn'
+                        variant="contained"
+                        color='dark'
+                        sx={{
+                            color: 'white',
+                            borderColor: 'white',
+                            marginLeft: '1vw',
+                            display: 'flex',
+                            alignItems: 'center',
+                            padding: '8px 16px', // Adjust padding to fit content
+                            '&:hover': {
+                                backgroundColor: '#333', // Darker shade on hover
+                                borderColor: '#aaa', // Lighter border color on hover
+                                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', // Add shadow effect on hover
+                            },
+                            minWidth: '120px',
+                            textAlign: 'center',
 
-                    }}
-                >
-                    <img src={loginSVG} alt="Login" style={{ maxHeight: '5vh', }} />
-                    Login
-                </Button>
-                
+                        }}
+                    >
+                        <img src={logoutSVG} alt="Login" style={{ maxHeight: '5vh', }} />
+                        Logout
+                    </Button>
+                    :
+                    <Button
+                        onClick={handleOpen}
+                        className='navigation-btn'
+                        variant="contained"
+                        color='dark'
+                        sx={{
+                            color: 'white',
+                            borderColor: 'white',
+                            marginLeft: '1vw',
+                            display: 'flex',
+                            alignItems: 'center',
+                            padding: '8px 16px', // Adjust padding to fit content
+                            '&:hover': {
+                                backgroundColor: '#333', // Darker shade on hover
+                                borderColor: '#aaa', // Lighter border color on hover
+                                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', // Add shadow effect on hover
+                            },
+                            minWidth: '120px',
+                            textAlign: 'center',
+
+                        }}
+                    >
+                        <img src={loginSVG} alt="Login" style={{ maxHeight: '5vh', }} />
+                        Login
+                    </Button>
+                }
+
                 <a
                     href="https://www.facebook.com/profile.php?id=100083172138963"
                     target="_blank"

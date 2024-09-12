@@ -22,7 +22,7 @@ const style = {
 
 export default function LoginModal(props) {
   const { open, handleClose } = props;
-  const { login, signup, googleLogin } = useContext(Context);
+  const { login, signup, googleLogin, errMsg } = useContext(Context);
 
   const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState({
@@ -42,7 +42,7 @@ export default function LoginModal(props) {
     const { credential } = response;
     if (credential) {
       await googleLogin(credential);
-      handleClose();
+      handleClose(); // Close the modal on successful Google login
     } else {
       setErrorMsg('Google login failed: no credential received');
     }
@@ -52,23 +52,23 @@ export default function LoginModal(props) {
     setErrorMsg('Google login failed');
   };
 
+  const [loginSuccessful, setLoginSuccessful] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg('');
-    if (isSignup) {
-      try {
+
+    try {
+      if (isSignup) {
         await signup(formData);
-        handleClose();
-      } catch (error) {
-        setErrorMsg('Signup failed');
-      }
-    } else {
-      try {
+        setIsSignup(false); // Switch back to login form
+      } else {
         await login(formData);
-        handleClose();
-      } catch (error) {
-        setErrorMsg('Login failed');
+        setLoginSuccessful(true); // Set login successful state
+        loginSuccessful && handleClose(); // Close the modal on successful login
       }
+    } catch (error) {
+      setErrorMsg(isSignup ? 'Signup failed' : 'Login failed');
     }
   };
 
@@ -130,7 +130,8 @@ export default function LoginModal(props) {
             margin="normal"
             required
           />
-          {errorMsg && <Typography color="error">{errorMsg}</Typography>}
+          {errMsg && <Typography color="error">{errMsg}</Typography>}
+
           <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
             {isSignup ? 'Sign Up' : 'Login'}
           </Button>
@@ -150,7 +151,6 @@ export default function LoginModal(props) {
         >
           {isSignup ? 'Already have an account? Login' : 'Don’t have an account? Sign Up'}
         </Button>
-
         <Button onClick={handleClose} sx={{ mt: 2 }} variant="outlined" fullWidth>
           Close
         </Button>
