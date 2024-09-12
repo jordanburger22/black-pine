@@ -113,6 +113,8 @@ export const ContextProvider = ({ children }) => {
         }
     }
 
+    console.log(userState)
+
     return (
         <Context.Provider value={{
             ...userState,
