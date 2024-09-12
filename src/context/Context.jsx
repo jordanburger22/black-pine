@@ -1,11 +1,8 @@
 import { createContext, useState } from 'react'
 import axios from 'axios'
-
+import { GoogleLogin } from '@react-oauth/google'
 
 export const Context = createContext()
-
-
-
 
 export const ContextProvider = ({ children }) => {
 
@@ -25,7 +22,7 @@ export const ContextProvider = ({ children }) => {
     const handleAuthErr = (err) => {
         setUserState({
             ...userState,
-            errMsg: err.response.data.message
+            errMsg: err.response?.data?.message || 'An error occurred'
         })
     }
 
@@ -36,9 +33,9 @@ export const ContextProvider = ({ children }) => {
         })
     }
 
-    const login = async(creds) => {
+    const login = async (creds) => {
         try {
-            const  res = await axios.post(`${baseURL}/login`, creds)
+            const res = await axios.post(`${baseURL}/login`, creds)
             const { user, token } = res.data
             localStorage.setItem('token', token)
             localStorage.setItem('user', JSON.stringify(user))
@@ -53,7 +50,7 @@ export const ContextProvider = ({ children }) => {
         }
     }
 
-    const signup = async(creds) => {
+    const signup = async (creds) => {
         try {
             return await axios.post(`${baseURL}/signup`, creds)
         } catch (err) {
@@ -72,7 +69,24 @@ export const ContextProvider = ({ children }) => {
         })
     }
 
-    const getServices = async() => {
+    const googleLogin = async (tokenId) => {
+        try {
+            const res = await axios.post(`${baseURL}/google-login`, { idToken: tokenId })
+            const { user, token } = res.data
+            localStorage.setItem('token', token)
+            localStorage.setItem('user', JSON.stringify(user))
+            setUserState({
+                user,
+                token,
+                errMsg: ''
+            })
+        } catch (err) {
+            console.log(err)
+            handleAuthErr(err)
+        }
+    }
+
+    const getServices = async () => {
         try {
             const res = await axios.get(`${baseURL}/services`)
             setServices(res.data)
@@ -80,7 +94,8 @@ export const ContextProvider = ({ children }) => {
             console.log(err)
         }
     }
-    const getMassageStyles = async() => {
+
+    const getMassageStyles = async () => {
         try {
             const res = await axios.get(`${baseURL}/massageStyles`)
             setMassageStyles(res.data)
@@ -88,7 +103,8 @@ export const ContextProvider = ({ children }) => {
             console.log(err)
         }
     }
-    const getBusinessInfo = async() => {
+
+    const getBusinessInfo = async () => {
         try {
             const res = await axios.get(`${baseURL}/businessInfo`)
             setBusinessInfo(res.data[0])
@@ -103,6 +119,7 @@ export const ContextProvider = ({ children }) => {
             login,
             signup,
             logout,
+            googleLogin, // Add googleLogin to context
             getServices,
             getMassageStyles,
             getBusinessInfo,
