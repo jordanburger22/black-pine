@@ -1,10 +1,11 @@
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { GoogleLogin } from '@react-oauth/google';
-import { Context } from '../context/Context'
+import { Context } from '../context/Context';
+import TextField from '@mui/material/TextField';
 
 const style = {
   position: 'absolute',
@@ -21,20 +22,54 @@ const style = {
 
 export default function LoginModal(props) {
   const { open, handleClose } = props;
-  const { googleLogin } = useContext(Context); // Use context to handle Google login
+  const { login, signup, googleLogin } = useContext(Context);
 
-  const handleSuccess = async(response) => {
+  const [isSignup, setIsSignup] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    username: '',
+    password: '',
+    name: ''
+  });
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleGoogleSuccess = async (response) => {
     const { credential } = response;
     if (credential) {
-      await googleLogin(credential); // Call the context method to handle login
-      handleClose(); // Close the modal after successful login
+      await googleLogin(credential);
+      handleClose();
     } else {
-      console.error('Google login failed: no credential received');
+      setErrorMsg('Google login failed: no credential received');
     }
   };
 
-  const handleFailure = () => {
-    console.error('Google login failed');
+  const handleGoogleFailure = () => {
+    setErrorMsg('Google login failed');
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMsg('');
+    if (isSignup) {
+      try {
+        await signup(formData);
+        handleClose();
+      } catch (error) {
+        setErrorMsg('Signup failed');
+      }
+    } else {
+      try {
+        await login(formData);
+        handleClose();
+      } catch (error) {
+        setErrorMsg('Login failed');
+      }
+    }
   };
 
   return (
@@ -46,13 +81,77 @@ export default function LoginModal(props) {
     >
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Login with Google
+          {isSignup ? 'Signup' : 'Login'}
         </Typography>
+
+        <form onSubmit={handleSubmit}>
+          {isSignup && (
+            <>
+              <TextField
+                label="Name"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                fullWidth
+                margin="normal"
+                required
+              />
+              <TextField
+                label="Email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                fullWidth
+                margin="normal"
+                required
+              />
+            </>
+          )}
+          {!isSignup && (
+            <TextField
+              label="Email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              fullWidth
+              margin="normal"
+              required
+            />
+          )}
+          <TextField
+            label="Password"
+            name="password"
+            type="password"
+            value={formData.password}
+            onChange={handleInputChange}
+            fullWidth
+            margin="normal"
+            required
+          />
+          {errorMsg && <Typography color="error">{errorMsg}</Typography>}
+          <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
+            {isSignup ? 'Sign Up' : 'Login'}
+          </Button>
+        </form>
+
         <GoogleLogin
-          onSuccess={handleSuccess}
-          onError={handleFailure}
+          onSuccess={handleGoogleSuccess}
+          onError={handleGoogleFailure}
+          style={{ marginTop: '16px' }}
         />
-        <Button onClick={handleClose} sx={{ mt: 2 }} variant="outlined">
+
+        <Button
+          onClick={() => setIsSignup((prev) => !prev)}
+          sx={{ mt: 2 }}
+          variant="outlined"
+          fullWidth
+        >
+          {isSignup ? 'Already have an account? Login' : 'Don’t have an account? Sign Up'}
+        </Button>
+
+        <Button onClick={handleClose} sx={{ mt: 2 }} variant="outlined" fullWidth>
           Close
         </Button>
       </Box>
