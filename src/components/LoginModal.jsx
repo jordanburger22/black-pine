@@ -22,7 +22,7 @@ const style = {
 
 export default function LoginModal(props) {
   const { open, handleClose } = props;
-  const { login, signup, googleLogin, errMsg } = useContext(Context);
+  const { login, signup, googleLogin, errMsg, handleAuthErr } = useContext(Context);
 
   const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState({
@@ -44,7 +44,7 @@ export default function LoginModal(props) {
       await googleLogin(credential);
       handleClose(); // Close the modal on successful Google login
     } else {
-      setErrorMsg('Google login failed: no credential received');
+      handleAuthErr('Google login failed: no credential received');
     }
   };
 
@@ -132,7 +132,7 @@ export default function LoginModal(props) {
           />
           {errMsg && <Typography color="error">{errMsg}</Typography>}
 
-          <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
+          <Button type="submit" variant="contained" fullWidth sx={{ mt: 2, mb: 2 }}>
             {isSignup ? 'Sign Up' : 'Login'}
           </Button>
         </form>
@@ -140,7 +140,6 @@ export default function LoginModal(props) {
         <GoogleLogin
           onSuccess={handleGoogleSuccess}
           onError={handleGoogleFailure}
-          style={{ marginTop: '16px' }}
         />
 
         <Button

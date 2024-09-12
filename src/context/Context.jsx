@@ -22,7 +22,7 @@ export const ContextProvider = ({ children }) => {
     const handleAuthErr = (err) => {
         setUserState({
             ...userState,
-            errMsg: err.response?.data?.message || 'An error occurred'
+            errMsg: err.response?.data?.message || err || 'An error occurred'
         })
     }
 
@@ -128,7 +128,8 @@ export const ContextProvider = ({ children }) => {
             resetAuthErr,
             businessInfo,
             services,
-            massageStyles
+            massageStyles,
+            handleAuthErr
         }}>
             {children}
         </Context.Provider>

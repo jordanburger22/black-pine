@@ -9,7 +9,7 @@ import instagram from '../assets/instagram.svg';
 import logoutSVG from '../assets/logout.svg';
 
 const Navbar = ({ handleOpen }) => {
-    const { businessInfo: { subHeader }, token, logout } = useContext(Context);
+    const { businessInfo: { subHeader }, token, logout, user } = useContext(Context);
 
     return (
         <nav>
@@ -126,6 +126,7 @@ const Navbar = ({ handleOpen }) => {
                         marginLeft: '1vw',
                         display: 'flex',
                         alignItems: 'center',
+                        textTransform: 'none',
                         '&:hover': {
                             backgroundColor: '#333', // Darker shade on hover
                             borderColor: '#aaa', // Lighter border color on hover
@@ -145,6 +146,36 @@ const Navbar = ({ handleOpen }) => {
                     </Typography>
                 </Button>
                 <ShoppingBagButton />
+                {token && user && user.role === 'admin' && <Button
+                    variant="contained"
+                    className='navigation-btn'
+                    color='dark'
+                    sx={{
+                        color: 'white',
+                        borderColor: 'white',
+                        marginLeft: '1vw',
+                        display: 'flex',
+                        alignItems: 'center',
+                        textTransform: 'none',
+                        '&:hover': {
+                            backgroundColor: '#333', // Darker shade on hover
+                            borderColor: '#aaa', // Lighter border color on hover
+                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)', // Add shadow effect on hover
+                        },
+                    }}
+                >
+                    <Typography variant="body1" fontFamily='Dancing Script' sx={{
+                        fontSize: {
+                            xs: '1.5rem', // For extra small screens (phones)
+                            sm: '1.5rem', // For small screens (tablets)
+                            md: '2rem', // For medium screens (desktops)
+                            lg: '2.5rem', // For large screens
+                        },
+                    }}>
+                        Admin
+                    </Typography>
+                </Button>}
+                
             </div>
             <div className='navbar'>
                 <img className='navbar-img' src={logo} alt='Logo' />
