@@ -1,4 +1,5 @@
 import Contact from "./Contact";
+import Disclaimer from "./Disclaimer";
 import Services from "./Services";
 
 
@@ -9,7 +10,7 @@ const Home = () => {
         <div className="home">
             <Services />
             <Contact />
-
+            <Disclaimer />
         </div>
     );
 }

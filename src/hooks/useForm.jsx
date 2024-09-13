@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 
 
-export const useForm = (initValue, submitFunc) => {
+export const useForm = (initValue, submitFunc, isEdit=false) => {
 
     const [formState, setFormState] = useState(initValue);
 
@@ -21,8 +21,8 @@ export const useForm = (initValue, submitFunc) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formState);
-        submitFunc(formState);
-        resetForm();
+        submitFunc();
+        !isEdit && resetForm();
 
     }
 
@@ -30,6 +30,7 @@ export const useForm = (initValue, submitFunc) => {
         formState,
         handleChange,
         handleSubmit,
-        resetForm
+        resetForm,
+        setFormState
     }
 }

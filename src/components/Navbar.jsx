@@ -118,7 +118,7 @@ const Navbar = ({ handleOpen }) => {
                         <img src={instagram} style={{ maxHeight: '4vh', }} />
                     </Button>
                 </a>
-                <Button
+                {/* <Button
                     variant="contained"
                     className='navigation-btn'
                     color='dark'
@@ -146,8 +146,8 @@ const Navbar = ({ handleOpen }) => {
                     }}>
                         Shop
                     </Typography>
-                </Button>
-                {token && <ShoppingBagButton />}
+                </Button> */}
+                {/* {token && <ShoppingBagButton />} */}
                 {token && user && user.role === 'admin' && <Button
                     variant="contained"
                     className='navigation-btn'

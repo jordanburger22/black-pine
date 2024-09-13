@@ -6,7 +6,11 @@ import Footer from './components/Footer'
 import Home from './components/Home'
 import LoginModal from './components/LoginModal'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import Admin from './components/admin-pages/Admin'
+import Admin from './components/admin-pages/AdminLayout'
+import AdminServices from './components/admin-pages/AdminServices'
+import AdminMassage from './components/admin-pages/AdminMassage'
+import AdminBusinessInfo from './components/admin-pages/AdminBusinessInfo'
+import AppRoutes from './components/AppRoutes'
 
 function App() {
 
@@ -32,10 +36,7 @@ function App() {
     <>
       <Navbar handleOpen={handleOpen} />
       <LoginModal open={open} handleClose={handleClose} />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/admin' element={token && user && user.role === 'admin' ? <Admin /> : <Navigate to='/' />} />
-      </Routes>
+      <AppRoutes />
       <Footer />
     </>
   )
