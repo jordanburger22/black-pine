@@ -5,7 +5,6 @@ import logo from '../assets/black-pine-logo.jpg'
 
 const Contact = () => {
     const { businessInfo } = useContext(Context);
-    console.log(businessInfo);
 
     return (
         <Grid2
