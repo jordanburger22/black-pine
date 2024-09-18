@@ -202,7 +202,7 @@ const Navbar = ({ handleOpen }) => {
                     variant="contained"
                     className='navigation-btn'
                     color='dark'
-                    onClick={() => navigate('/admin')}
+                    onClick={() => navigate('/admin/services')}
                     sx={{
                         color: 'white',
                         borderColor: 'white',
