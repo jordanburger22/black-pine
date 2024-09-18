@@ -7,6 +7,7 @@ import AdminBusinessInfo from './admin-pages/AdminBusinessInfo';
 // import AdminOrders from './AdminOrders'; // Add this component if needed
 import { useContext } from 'react';
 import { Context } from '../context/Context';
+import Gallery from './Gallery';
 
 const AppRoutes = () => {
     const {token, user} = useContext(Context)
@@ -14,6 +15,7 @@ const AppRoutes = () => {
     return (
         <Routes>
             <Route path='/' element={<Home />} />
+            <Route path='/gallery' element={<Gallery />}/>
             <Route path='/admin' element={token && user && user.role === 'admin' ? <AdminLayout /> : <Navigate to='/' />}>
                 <Route path='services' element={token && user && user.role === 'admin' ? <AdminServices /> : <Navigate to='/' />} />
                 <Route path='massage' element={token && user && user.role === 'admin' ? <AdminMassage /> : <Navigate to='/' />} />
