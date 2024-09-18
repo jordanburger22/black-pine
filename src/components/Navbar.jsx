@@ -168,7 +168,7 @@ const Navbar = ({ handleOpen }) => {
 
                         }}
                     >
-                        <img src={logoutSVG} alt="Login" style={{ maxHeight: '5vh', }} />
+                        <img src={logoutSVG} alt="Login" style={{ maxHeight: '3vh', }} />
                         Logout
                     </Button>
                     :
@@ -222,7 +222,7 @@ const Navbar = ({ handleOpen }) => {
                             xs: '1.5rem', // For extra small screens (phones)
                             sm: '1.5rem', // For small screens (tablets)
                             md: '2rem', // For medium screens (desktops)
-                            lg: '2.5rem', // For large screens
+                            lg: '3vh', // For large screens
                         },
                     }}>
                         Admin
